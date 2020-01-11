@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Task List</title>
+  </head>
+  <body>
+    <header><span>Task List</span></header>
+    <main>
+      <section>
+        <form>
+          <div>
+            <label>Task</label>
+            <input
+              type="text"
+              required="required"
+              name="task"
+              class="large"
+              placeholder="Breakfast at Tiffany's"
+            />
+          </div>
+          <div>
+            <label>Required by</label
+            ><input type="date" name="requiredBy" required="required" id="" />
+          </div>
+          <div>
+            <label for="">Category</label>
+            <select name="category">
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+            </select>
+          </div>
+          <nav><a href="">Save task</a><a href="">Clear task</a></nav>
+        </form>
+      </section>
+      <section>
+        <table id="tblTasks">
+          <colgroup>
+            <!-- FIXME: width is a deprecated attribute -->
+            <col width="50%" />
+            <col width="25%" />
+            <col width="25%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Due</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Return library books</td>
+              <td><time datetime="2020-01-14">2013-10-14</time></td>
+              <td>Personal</td>
+            </tr>
+            <tr class="even">
+              <td>Perform project demo to stakeholders</td>
+              <td><time>2020-01-14</time></td>
+              <td>Work</td>
+            </tr>
+            <tr>
+              <td>Meet friends for dinner</td>
+              <td><time datetime="2020-01-14">2020-01-14</time></td>
+              <td>Personal</td>
+            </tr>
+          </tbody>
+        </table>
+        <nav><a href="#">Add task</a></nav>
+      </section>
+    </main>
+    <footer>You have 3 tasks</footer>
+  </body>
+</html>

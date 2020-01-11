@@ -6,8 +6,9 @@
   "author": "George Bockari <bitwhys@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "yarn dev",
-    "dev": "webpack-dev-server --open",
+    "start": "yarn dev:nodemon --open",
+    "dev": "webpack-dev-server",
+    "dev:nodemon": "npx nodemon --exec \"yarn dev\"",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -29,6 +30,7 @@
     "jest": "^24.9.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.0",
+    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.1.2",

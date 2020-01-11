@@ -1,0 +1,6 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "ignore": ["node_modules/**/node_modules", "src", "public","*.md" ],
+  "runOnChangeOnly": false
+}
