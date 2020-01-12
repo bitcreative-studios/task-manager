@@ -8,6 +8,8 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Task List</title>
+    <script src="js/vendors/jquery-3.4.1.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -83,4 +85,73 @@
     <footer>You have 3 tasks</footer>
     <script src="app.js"></script>
   </body>
+  <script>
+    $(document).ready(function() {
+      $('[required="required"]')
+        .prev("label")
+        .append("<span>*</span>")
+        .children("span")
+        .addClass("required")
+      $("tbody tr:even").addClass("even")
+      $("#btnAddTask").click(function(evt) {
+        evt.preventDefault()
+        $("#taskCreation").removeClass("not")
+      })
+      $("tbody tr").click(function(evt) {
+        $(evt.target)
+          .closest("td")
+          .siblings()
+          .addBack()
+          .toggleClass("rowHighlight")
+      })
+      $("#tblTasks tbody").on("click", ".deleteRow", function(evt) {
+        evt.preventDefault()
+        $(evt.target)
+          .parents("tr")
+          .remove()
+      })
+      $("#saveTask").click(function(evt) {
+        evt.preventDefault()
+        var task = $("form").toObject()
+        $("#taskRow")
+          .tmpl(task)
+          .appendTo($("#tblTasks tbody"))
+      })
+      ;(function($) {
+        $.fn.extend({
+          toObject: function() {
+            var result = {}
+            $.each(this.serializeArray(), function(i, v) {
+              result[v.name] = v.value
+            })
+            return result
+          },
+          fromObject: function(obj) {
+            $.each(this.find(":input"), function(i, v) {
+              var name = $(v).attr("name")
+              if (obj[name]) {
+                $(v).val(obj[name])
+              } else {
+                $(v).val("")
+              }
+            })
+          },
+        })
+      })(jQuery)
+    })
+  </script>
+  <script id="taskRow" type="text/x-jQuery-tmpl">
+    <tr>
+      <td>${task}</td>
+      <td><time datetime="${requiredBy}">${requiredBy}</time></td>
+      <td>${category}</td>
+      <td>
+          <nav>
+            <a href="" class="editRow">Edit</a
+            ><a href="" class="completeRow">Complete</a
+            ><a href="" class="deleteRow">Delete</a>
+          </nav>
+      </td>
+    </tr>
+  </script>
 </html>
