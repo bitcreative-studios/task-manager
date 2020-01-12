@@ -20,7 +20,7 @@
   <body>
     <header><span>Task List</span></header>
     <main>
-      <section>
+      <section id="taskCreation" class="not">
         <form>
           <div>
             <label>Task</label>
@@ -43,43 +43,31 @@
               <option value="Work">Work</option>
             </select>
           </div>
-          <nav><a href="">Save task</a><a href="">Clear task</a></nav>
+          <nav>
+            <a id="saveTask" href="">Save task</a><a href="">Clear task</a>
+          </nav>
         </form>
       </section>
       <section>
         <table id="tblTasks">
           <colgroup>
             <!-- FIXME: width is a deprecated attribute -->
-            <col width="50%" />
-            <col width="25%" />
-            <col width="25%" />
+            <col width="40%" />
+            <col width="15%" />
+            <col width="15%" />
+            <col width="30%" />
           </colgroup>
           <thead>
             <tr>
               <th>Name</th>
               <th>Due</th>
               <th>Category</th>
+              <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Return library books</td>
-              <td><time datetime="2020-01-14">2013-10-14</time></td>
-              <td>Personal</td>
-            </tr>
-            <tr class="even">
-              <td>Perform project demo to stakeholders</td>
-              <td><time>2020-01-14</time></td>
-              <td>Work</td>
-            </tr>
-            <tr>
-              <td>Meet friends for dinner</td>
-              <td><time datetime="2020-01-14">2020-01-14</time></td>
-              <td>Personal</td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
-        <nav><a href="#">Add task</a></nav>
+        <nav><a id="btnAddTask" href="#">Add task</a></nav>
       </section>
     </main>
     <footer>You have 3 tasks</footer>
