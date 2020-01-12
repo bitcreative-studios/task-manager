@@ -6,7 +6,8 @@
   "author": "George Bockari <bitwhys@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "npx live-server \"./src\""
+    "start": "npx live-server \"./src\"",
+    "dev:debug": "cd src && npx serve"
   },
   "devDependencies": {
     "cz-conventional-changelog": "3.0.2",
