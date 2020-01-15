@@ -70,10 +70,16 @@ var tasksController = (function() {
           .find("#saveTask")
           .click(function(evt) {
             evt.preventDefault()
-            var task = $("form").toObject()
-            $("#taskRow")
-              .tmpl(task)
-              .appendTo($(taskPage).find("#tblTasks tbody"))
+            if (
+              $(taskPage)
+                .find("form")
+                .valid()
+            ) {
+              var task = $("form").toObject()
+              $("#taskRow")
+                .tmpl(task)
+                .appendTo($(taskPage).find("#tblTasks tbody"))
+            }
           })
         initialised = true
       }
