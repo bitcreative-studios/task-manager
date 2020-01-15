@@ -77,43 +77,9 @@
   </body>
   <script>
     $(document).ready(function() {
-      function handleAddTask(evt) {
-        evt.preventDefault()
-        $("#taskCreation").removeClass("not")
-      }
-
-      $('[required="required"]')
-        .prev("label")
-        .append("<span>*</span>")
-        .children("span")
-        .addClass("required")
-      $("tbody tr:even").addClass("even")
-
-      $("#btnAddTask").click(handleAddTask)
-
-      $("tbody tr").click(function(evt) {
-        $(evt.target)
-          .closest("td")
-          .siblings()
-          .addBack()
-          .toggleClass("rowHighlight")
-      })
-
-      $("#tblTasks tbody").on("click", ".deleteRow", function(evt) {
-        evt.preventDefault()
-        $(evt.target)
-          .parents("tr")
-          .remove()
-      })
-
-      $("#saveTask").click(function(evt) {
-        evt.preventDefault()
-        var task = $("form").toObject()
-        $("#taskRow")
-          .tmpl(task)
-          .appendTo($("#tblTasks tbody"))
-      })
-
+      // initialize the ui components of the application
+      tasksController.init($("#taskPage"))
+      // jQuery plugin to serialize a form into an object and back
       ;(function($) {
         $.fn.extend({
           toObject: function() {
