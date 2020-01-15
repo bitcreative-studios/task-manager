@@ -8,25 +8,29 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Task List</title>
-    <script src="js/vendors/jquery-3.4.1.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
     <link
       rel="stylesheet"
       type="text/css"
       href="styles/tasks.css"
       media="screen"
     />
+    <script src="js/vendors/jquery-3.4.1.js"></script>
+    <script src="js/vendors/jquery.tmpl.js"></script>
+    <script src="js/vendors/jquery.validate.js"></script>
+    <script src="js/jquery-serialization.js"></script>
+    <script src="js/tasks-controller.js"></script>
   </head>
   <body>
     <header><span>Task List</span></header>
-    <main>
+    <main id="taskPage">
       <section id="taskCreation" class="not">
-        <form>
+        <form id="taskForm">
           <div>
             <label>Task</label>
             <input
               type="text"
               required="required"
+              maxlength="200"
               name="task"
               class="large"
               placeholder="Breakfast at Tiffany's"
@@ -44,7 +48,8 @@
             </select>
           </div>
           <nav>
-            <a id="saveTask" href="">Save task</a><a href="">Clear task</a>
+            <a id="saveTask" href="">Save task</a
+            ><a id="clearTask" href="">Clear task</a>
           </nav>
         </form>
       </section>
@@ -71,40 +76,12 @@
       </section>
     </main>
     <footer>You have 3 tasks</footer>
-    <script src="app.js"></script>
   </body>
   <script>
     $(document).ready(function() {
-      $('[required="required"]')
-        .prev("label")
-        .append("<span>*</span>")
-        .children("span")
-        .addClass("required")
-      $("tbody tr:even").addClass("even")
-      $("#btnAddTask").click(function(evt) {
-        evt.preventDefault()
-        $("#taskCreation").removeClass("not")
-      })
-      $("tbody tr").click(function(evt) {
-        $(evt.target)
-          .closest("td")
-          .siblings()
-          .addBack()
-          .toggleClass("rowHighlight")
-      })
-      $("#tblTasks tbody").on("click", ".deleteRow", function(evt) {
-        evt.preventDefault()
-        $(evt.target)
-          .parents("tr")
-          .remove()
-      })
-      $("#saveTask").click(function(evt) {
-        evt.preventDefault()
-        var task = $("form").toObject()
-        $("#taskRow")
-          .tmpl(task)
-          .appendTo($("#tblTasks tbody"))
-      })
+      // initialize the ui components of the application
+      tasksController.init($("#taskPage"))
+      // jQuery plugin to serialize a form into an object and back
       ;(function($) {
         $.fn.extend({
           toObject: function() {
