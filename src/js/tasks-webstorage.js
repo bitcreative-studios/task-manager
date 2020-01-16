@@ -11,12 +11,12 @@
  * @method {Function} findByProperty
  */
 var storageEngine = (function() {
-  const STORAGE_API_AVAILABILITY_ERROR = {
+  var STORAGE_API_AVAILABILITY_ERROR = {
     code: "storage_api_not_supported",
     message: "The storage engine has not been initialized",
   }
 
-  const STORAGE_API_INITIALIZATION_ERROR = {
+  var STORAGE_API_INITIALIZATION_ERROR = {
     code: "storage_api_not_initialized",
     message: "",
   }
@@ -26,15 +26,19 @@ var storageEngine = (function() {
    * @return {{code: string, message: string}}
    *
    */
-  const OBJECT_STORE_TYPE_INITIALIZATION_ERROR = type => {
+  var OBJECT_STORE_TYPE_INITIALIZATION_ERROR = type => {
     return {
       code: "store_not_initialized",
       message: `The object store ${type} has not been initialized`,
     }
   }
-
   var initialized = false
   var initializedObjectStores = {}
+
+  function getStorageObject(type) {
+    var store = localStorage.getItem(type)
+    return JSON.parse(store)
+  }
 
   /**
    * This will be called in all success scenarios
@@ -152,8 +156,7 @@ var storageEngine = (function() {
       if (!obj.id) {
         obj.id = $.now()
       }
-      var savedTypeString = localStorage.getItem(type)
-      var storageItem = JSON.parse(savedTypeString)
+      var storageItem = getStorageObject(type)
       storageItem[obj.id] = obj
       localStorage.setItem(type, JSON.stringify(storageItem))
       successCallback(obj)
