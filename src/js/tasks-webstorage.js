@@ -12,24 +12,25 @@
  */
 var storageEngine = (function() {
   var STORAGE_API_AVAILABILITY_ERROR = {
-    code: "storage_api_not_supported",
+    code: "STORAGE_API_NOT_SUPPORTED",
     message: "The storage engine has not been initialized",
   }
 
   var STORAGE_API_INITIALIZATION_ERROR = {
-    code: "storage_api_not_initialized",
+    code: "STORAGE_API_NOT_INITIALIZED",
     message: "",
   }
-  /**
-   *
-   * @param type
-   * @return {{code: string, message: string}}
-   *
-   */
+
   var OBJECT_STORE_TYPE_INITIALIZATION_ERROR = type => {
     return {
-      code: "store_not_initialized",
+      code: "STORE_NOT_INITIALIZED",
       message: `The object store ${type} has not been initialized`,
+    }
+  }
+  var OBJECT_NOT_FOUND_ERROR = id => {
+    return {
+      code: "OBJECT_NOT_FOUND",
+      message: `The object store has no item with ${id}`,
     }
   }
   var initialized = false
@@ -189,7 +190,21 @@ var storageEngine = (function() {
      * This will be passed the unique id of the deleted object.
      * @param {ErrorCallback} errorCallback The callback that will be invoked on error scenarios.
      */
-    delete(type, id, successCallback, errorCallback) {},
+    delete(type, id, successCallback, errorCallback) {
+      if (!initialized) {
+        errorCallback(STORAGE_API_INITIALIZATION_ERROR)
+      } else if (!initializedObjectStores[type]) {
+        errorCallback(OBJECT_STORE_TYPE_INITIALIZATION_ERROR(type))
+      }
+      var store = getStorageObject(type)
+      if (store[id]) {
+        delete store[id]
+        localStorage.setItem(type, JSON.stringify(store))
+        successCallback(id)
+      } else {
+        errorCallback(OBJECT_NOT_FOUND_ERROR(id))
+      }
+    },
 
     /**
      * This can be used for querying objects based on a property value.

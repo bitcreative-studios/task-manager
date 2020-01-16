@@ -81,10 +81,16 @@ var tasksController = (function() {
         $(taskPage)
           .find("#tblTasks tbody")
           .on("click", ".deleteRow", function(evt) {
-            evt.preventDefault()
-            $(evt.target)
-              .parents("tr")
-              .remove()
+            storageEngine.delete(
+              "task",
+              $(evt.target).data().taskId,
+              function() {
+                $(evt.target)
+                  .parents("tr")
+                  .remove()
+              },
+              errorLogger
+            )
           })
 
         // setup click handler to save task using our jQuery form plugin
@@ -118,7 +124,6 @@ var tasksController = (function() {
       storageEngine.findAll(
         "task",
         function(tasks) {
-          console.log(tasks)
           $.each(tasks, function(index, task) {
             $("#taskRow")
               .tmpl(task)
