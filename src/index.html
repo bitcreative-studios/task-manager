@@ -82,6 +82,7 @@
     $(document).ready(function() {
       // initialize the ui components of the application
       tasksController.init($("#taskPage"))
+      tasksController.loadTasks($("#taskPage"))
       // jQuery plugin to serialize a form into an object and back
       ;(function($) {
         $.fn.extend({

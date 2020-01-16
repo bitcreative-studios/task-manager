@@ -114,7 +114,19 @@ var storageEngine = (function() {
      * This will be passed an array of objects conforming to the requested type.
      * @param {ErrorCallback} errorCallback The callback that will be invoked on error scenarios.
      */
-    findAll(type, successCallback, errorCallback) {},
+    findAll(type, successCallback, errorCallback) {
+      if (!initialized) {
+        errorCallback(STORAGE_API_INITIALIZATION_ERROR)
+      } else if (!initializedObjectStores) {
+        errorCallback(OBJECT_STORE_TYPE_INITIALIZATION_ERROR(type))
+      }
+      var result = []
+      var store = getStorageObject(type)
+      $.each(store, function(_, v) {
+        result.push(v)
+      })
+      successCallback(result)
+    },
 
     /**
      * This will return an object with a specific id for a specific type.

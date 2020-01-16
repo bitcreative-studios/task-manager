@@ -99,8 +99,7 @@ var tasksController = (function() {
             ) {
               var task = $("form").toObject()
               storageEngine.save(
-                // FIXME: only for testing
-                "apple",
+                "task",
                 task,
                 function(savedTask) {
                   $("#taskRow")
@@ -113,6 +112,21 @@ var tasksController = (function() {
           })
         initialised = true
       }
+    },
+
+    loadTasks: function() {
+      storageEngine.findAll(
+        "task",
+        function(tasks) {
+          console.log(tasks)
+          $.each(tasks, function(index, task) {
+            $("#taskRow")
+              .tmpl(task)
+              .appendTo($(taskPage).find("#tblTasks tbody"))
+          })
+        },
+        errorLogger
+      )
     },
   }
 })()
