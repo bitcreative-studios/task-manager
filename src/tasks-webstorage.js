@@ -119,9 +119,14 @@ function findByProperty(
 function succesCallback(result) {}
 
 /**
+ * @typedef {Object} ErrorObject - The shape of all errors returned from the API on failure
+ * @property {string} errorCode - The type of exception
+ * @property {string} errorMessage - A human readable version of the error message
+ */
+
+/**
  * This will be called in all failure scenarios
  * @callback ErrorCallback
- * @param {string} errorCode The type of exception
- * @param {string} errorMessage A human readable version of the error message.
+ * @param {ErrorObject} error Information about the failure
  */
-function errorCallback(result) {}
+function errorCallback(error) {}
