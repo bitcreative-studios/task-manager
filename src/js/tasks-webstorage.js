@@ -140,7 +140,15 @@ var storageEngine = (function() {
      * This will be passed an object conforming to the requested type or null.
      * @param {ErrorCallback} errorCallback The callback that will be invoked on error scenarios.
      */
-    findById(type, successCallback, errorCallback) {},
+    findById(type, id, successCallback, errorCallback) {
+      if (!initialized) {
+        errorCallback(STORAGE_API_INITIALIZATION_ERROR)
+      } else if (!initializedObjectStores[type]) {
+        errorCallback(OBJECT_STORE_TYPE_INITIALIZATION_ERROR(type))
+      }
+      var store = getStorageObject(type)
+      successCallback(store[id])
+    },
 
     /**
      *
@@ -224,6 +232,20 @@ var storageEngine = (function() {
       propertyValue,
       successCallback,
       errorCallback
-    ) {},
+    ) {
+      if (!initialized) {
+        errorCallback(STORAGE_API_INITIALIZATION_ERROR)
+      } else if (!initializedObjectStores[type]) {
+        errorCallback(OBJECT_STORE_TYPE_INITIALIZATION_ERROR(type))
+      }
+      var result = []
+      var store = getStorageObject(type)
+      $.each(store, function(_, v) {
+        if (v[propertyName] === propertyValue) {
+          result.push(v)
+        }
+      })
+      successCallback(result)
+    },
   }
 })()
