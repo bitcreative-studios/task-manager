@@ -1,18 +1,26 @@
-import path from "path"
-import gulp, { src, dest, series, parallel } from "gulp"
-import bs from "browser-sync"
-import sourcemaps from "gulp-sourcemaps"
-import sass from "gulp-sass"
-import postCss from "gulp-postcss"
 import autopreFixer from "autoprefixer"
-import cssNano from "cssnano"
+import bs from "browser-sync"
 import concat from "gulp-concat"
+import cssNano from "cssnano"
+import deporder from "gulp-deporder"
+import gulp, { src, dest, series, parallel } from "gulp"
+import noop from "gulp-noop"
+import path from "path"
+import postCss from "gulp-postcss"
+import sass from "gulp-sass"
+import terser from "gulp-terser"
 import uglify from "gulp-uglify"
 
+const DEVELOPMENT = process.env.NODE_ENV !== "production"
+const stripDebug = DEVELOPMENT ? null : require("gulp-strip-debug")
+const sourcemaps = DEVELOPMENT ? require("gulp-sourcemaps") : null
+
 const APPLICATION_ROOT = path.resolve(__dirname, "src")
+const PUBLIC_ROOT = path.resolve(__dirname, "public")
 const HTML_FILES = `${APPLICATION_ROOT}/*.html`
 const SASS_SOURCE_FILES = path.resolve(__dirname, "src/scss/**/*.scss")
-const JS_SOURCE_FILES = path.resolve(__dirname, "..", "src/js/**/*.js")
+const JS_SOURCE_FILES = path.resolve(__dirname, "src/js/**/*.js")
+const VENDOR_FILES = path.resolve(__dirname, "src/vendors/**/*.js")
 
 const browserSync = bs.create()
 
@@ -27,33 +35,47 @@ const browserSync = bs.create()
  * 6. write the transformed stream to disc
  */
 
-const sassTask = () => {
+const html = () => {
+  return src(HTML_FILES).pipe(dest(PUBLIC_ROOT))
+}
+
+const css = () => {
   return src(SASS_SOURCE_FILES)
-    .pipe(sourcemaps.init())
+    .pipe(sourcemaps ? sourcemaps.init() : noop())
     .pipe(sass().on("error", sass.logError))
     .pipe(postCss([autopreFixer, cssNano]))
-    .pipe(sourcemaps.write("."))
-    .pipe(dest(`${APPLICATION_ROOT}/css`))
+    .pipe(sourcemaps ? sourcemaps.write(".") : noop())
+    .pipe(dest(`${PUBLIC_ROOT}/css`))
     .pipe(browserSync.stream())
 }
 
-const jsTask = () => {
+const js = () => {
   return src(JS_SOURCE_FILES)
+    .pipe(sourcemaps ? sourcemaps.init() : noop())
+    .pipe(deporder())
     .pipe(concat("bundle.js"))
-    .pipe(uglify())
-    .pipe(dest("public"))
+    .pipe(stripDebug ? stripDebug() : noop())
+    .pipe(terser())
+    .pipe(sourcemaps ? sourcemaps.write() : noop())
+    .pipe(dest(PUBLIC_ROOT))
 }
 
 const watch = () => {
   browserSync.init({
     server: {
-      baseDir: APPLICATION_ROOT,
+      baseDir: PUBLIC_ROOT,
     },
   })
-  gulp.watch(SASS_SOURCE_FILES, sassTask)
+  gulp.watch(SASS_SOURCE_FILES, css)
   gulp.watch(JS_SOURCE_FILES).on("change", browserSync.reload)
   gulp.watch(HTML_FILES).on("change", browserSync.reload)
 }
+const build = parallel(html, css, js, () =>
+  src(VENDOR_FILES).pipe(dest(`${PUBLIC_ROOT}/vendors`))
+)
 
-exports.sass = sassTask
+exports.build = build
+exports.default = series(build, watch)
+exports.sass = css
 exports.watch = watch
+exports.js = js

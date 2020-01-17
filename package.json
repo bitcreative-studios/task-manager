@@ -24,6 +24,10 @@
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "gulp-babel": "^8.0.0",
+    "gulp-deporder": "^1.2.0",
+    "gulp-noop": "^1.0.0",
+    "gulp-strip-debug": "^3.0.0",
+    "gulp-terser": "^1.2.0",
     "prettier": "^1.19.1"
   },
   "config": {
