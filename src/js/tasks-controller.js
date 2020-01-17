@@ -1,3 +1,4 @@
+// requires: tasks-webstorage.js
 /**
  * @fileOverview We use the `module` pattern to ensure this `controller` can encapsulate data,
  * and expose a public API to the rest of the application.

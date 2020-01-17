@@ -10,19 +10,40 @@
     "dev:debug": "cd src && npx serve"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/register": "^7.8.3",
+    "browser-sync": "^2.26.7",
     "cz-conventional-changelog": "3.0.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.9.0",
-    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-deporder": "^1.2.0",
+    "gulp-noop": "^1.0.0",
+    "gulp-strip-debug": "^3.0.0",
+    "gulp-terser": "^1.2.0",
     "prettier": "^1.19.1"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "autoprefixer": "^9.7.4",
+    "bootstrap": "^4.4.1",
+    "cssnano": "^4.1.10",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2"
   }
 }
