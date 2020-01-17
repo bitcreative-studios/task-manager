@@ -68,7 +68,10 @@ const watch = () => {
   })
   gulp.watch(SASS_SOURCE_FILES, css)
   gulp.watch(JS_SOURCE_FILES).on("change", browserSync.reload)
-  gulp.watch(HTML_FILES).on("change", browserSync.reload)
+  gulp.watch(HTML_FILES).on("change", () => {
+    src(HTML_FILES).pipe(dest(PUBLIC_ROOT))
+    browserSync.reload()
+  })
 }
 const build = parallel(html, css, js, () =>
   src(VENDOR_FILES).pipe(dest(`${PUBLIC_ROOT}/vendors`))
