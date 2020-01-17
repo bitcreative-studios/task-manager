@@ -19,12 +19,14 @@
     <script src="js/vendors/jquery.validate.js"></script>
     <script src="js/jquery-serialization.js"></script>
     <script src="js/tasks-controller.js"></script>
+    <script src="js/tasks-webstorage.js"></script>
   </head>
   <body>
     <header><span>Task List</span></header>
     <main id="taskPage">
       <section id="taskCreation" class="not">
         <form id="taskForm">
+          <input type="hidden" name="id" />
           <div>
             <label>Task</label>
             <input
@@ -81,6 +83,7 @@
     $(document).ready(function() {
       // initialize the ui components of the application
       tasksController.init($("#taskPage"))
+      tasksController.loadTasks($("#taskPage"))
       // jQuery plugin to serialize a form into an object and back
       ;(function($) {
         $.fn.extend({
@@ -112,9 +115,9 @@
       <td>${category}</td>
       <td>
           <nav>
-            <a href="" class="editRow">Edit</a
-            ><a href="" class="completeRow">Complete</a
-            ><a href="" class="deleteRow">Delete</a>
+            <a href="" class="editRow" data-task-id="${id}">Edit</a
+            ><a href="" class="completeRow" data-task-id="${id}">Complete</a
+            ><a href="" class="deleteRow" data-task-id="${id}">Delete</a>
           </nav>
       </td>
     </tr>
