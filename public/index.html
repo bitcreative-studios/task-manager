@@ -19,40 +19,43 @@
     <link rel="stylesheet" href="css/custom.css" />
   </head>
   <body>
-    <header class="jumbotron"><span class="display-4">Task List</span></header>
-    <main id="taskPage" class="container-fluid">
-      <section id="taskCreation" class="not">
-        <form id="taskForm">
+    <header class="jumbotron text-center">
+      <span class="display-4">Task List</span>
+    </header>
+    <main id="taskPage" class="container">
+      <section id="taskCreation" class="not row">
+        <form id="taskForm" class="col-6">
           <input type="hidden" name="id" />
           <div class="form-group">
-            <label for="task">Task</label>
+            <label for="task" class="text-muted">Task</label>
             <input
               id="task"
+              class="large form-control"
               type="text"
               required="required"
               maxlength="200"
               name="task"
-              class="large"
               placeholder="Breakfast at Tiffany's"
             />
           </div>
           <div class="form-group">
-            <label for="requiredBy">Required by</label
+            <label for="requiredBy" class="text-muted">Required by</label
             ><input
               type="date"
+              class="form-control"
               name="requiredBy"
               required="required"
               id="requiredBy"
             />
           </div>
           <div class="form-group">
-            <label for="category">Category</label>
-            <select name="category" id="category">
+            <label for="category" class="text-muted">Category</label>
+            <select name="category" id="category" class="form-control">
               <option value="Personal">Personal</option>
               <option value="Work">Work</option>
             </select>
           </div>
-          <nav class="form-group">
+          <nav class="form-group btn-group">
             <a id="saveTask" href="" class="btn btn-primary task-primary"
               >Save task</a
             ><a id="clearTask" href="" class="btn btn-primary task-primary"
@@ -61,8 +64,8 @@
           </nav>
         </form>
       </section>
-      <section>
-        <table id="tblTasks">
+      <section class="mb-3">
+        <table id="tblTasks" class="mb-3">
           <colgroup>
             <!-- FIXME: width is a deprecated attribute -->
             <col width="40%" />
@@ -80,10 +83,12 @@
           </thead>
           <tbody></tbody>
         </table>
-        <nav><a id="btnAddTask" href="#">Add task</a></nav>
+        <nav>
+          <a id="btnAddTask" class="btn btn-primary" href="#">Add task</a>
+        </nav>
       </section>
     </main>
-    <footer class="jumbotron">You have 3000 tasks</footer>
+    <footer class="jumbotron text-center">You have 3 tasks</footer>
   </body>
   <script>
     $(document).ready(function() {
@@ -120,10 +125,10 @@
       <td><time datetime="${requiredBy}">${requiredBy}</time></td>
       <td>${category}</td>
       <td>
-          <nav>
-            <a href="" class="editRow" data-task-id="${id}">Edit</a
-            ><a href="" class="completeRow" data-task-id="${id}">Complete</a
-            ><a href="" class="deleteRow" data-task-id="${id}">Delete</a>
+          <nav class="btn-group">
+            <a href="" class="editRow btn btn-primary" data-task-id="${id}">Edit</a
+            ><a href="" class="completeRow btn btn-primary" data-task-id="${id}">Complete</a
+            ><a href="" class="deleteRow btn btn-primary" data-task-id="${id}">Delete</a>
           </nav>
       </td>
     </tr>
