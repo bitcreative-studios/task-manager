@@ -1,0 +1,90 @@
+$task-primary-color: #54777b;
+$task-secondary-color: #d1e1e1;
+$task-white-color: #f8f8f8;
+$task-light-gray: #e5e5e5;
+$task-gray: #c4c4c4;
+
+$primary: $task-primary-color;
+$secondary: $task-secondary-color;
+$body-bg: $task-white-color;
+$danger: #ff0844;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  font-family: "Rubik", sans-serif;
+}
+
+.jumbotron {
+  background: $secondary;
+}
+
+label {
+  text-transform: uppercase;
+}
+
+// Colorlib TableV1 styles
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+table td,
+table th {
+  padding-left: 8px;
+  border: 1px solid $task-light-gray;
+}
+
+table td + td,
+table th + th {
+  border-left: none;
+}
+table tbody tr + tr td {
+  border-top: none;
+}
+table thead tr {
+  height: 60px;
+  background: $primary;
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+table tbody tr {
+  height: 50px;
+}
+table tbody tr:last-child {
+  border: 0;
+}
+table td,
+table th {
+  text-align: left;
+}
+
+// Book styles
+label.error {
+  color: $danger;
+  font-weight: bold;
+}
+.required {
+  color: $danger;
+}
+.not {
+  display: none;
+}
+.rowHeightLight {
+  font-weight: bold;
+}
+.overdue {
+  background: #f7dce5;
+}
+.warning {
+  background: #f7dce5;
+}
+.taskCompleted {
+  text-decoration: line-through;
+}
