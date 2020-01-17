@@ -77,7 +77,26 @@ var tasksController = (function() {
               .toggleClass("rowHighlight")
           })
 
-        // setup click handler to delete rows
+        // setup click handler to edit row
+        $(taskPage)
+          .find("#tblTasks tbody")
+          .on("click", ".editRow", function(evt) {
+            $(taskPage)
+              .find("#taskCreation")
+              .removeClass("not")
+            storageEngine.findById(
+              "task",
+              $(evt.target).data().taskId,
+              function(task) {
+                $(taskPage)
+                  .find("form")
+                  .fromObject(task)
+              },
+              errorLogger
+            )
+          })
+
+        // setup click handler to delete row
         $(taskPage)
           .find("#tblTasks tbody")
           .on("click", ".deleteRow", function(evt) {

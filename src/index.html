@@ -26,6 +26,7 @@
     <main id="taskPage">
       <section id="taskCreation" class="not">
         <form id="taskForm">
+          <input type="hidden" name="id" />
           <div>
             <label>Task</label>
             <input
@@ -114,8 +115,8 @@
       <td>${category}</td>
       <td>
           <nav>
-            <a href="" class="editRow">Edit</a
-            ><a href="" class="completeRow">Complete</a
+            <a href="" class="editRow" data-task-id="${id}">Edit</a
+            ><a href="" class="completeRow" data-task-id="${id}">Complete</a
             ><a href="" class="deleteRow" data-task-id="${id}">Delete</a>
           </nav>
       </td>
