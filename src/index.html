@@ -8,28 +8,28 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Task List</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="styles/tasks.css"
-      media="screen"
-    />
-    <script src="js/vendors/jquery-3.4.1.js"></script>
-    <script src="js/vendors/jquery.tmpl.js"></script>
-    <script src="js/vendors/jquery.validate.js"></script>
+    <script src="vendors/jquery-3.4.1.js"></script>
+    <script src="vendors/jquery.tmpl.js"></script>
+    <script src="vendors/jquery.validate.js"></script>
     <script src="js/jquery-serialization.js"></script>
     <script src="js/tasks-controller.js"></script>
     <script src="js/tasks-webstorage.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/custom.css" />
   </head>
   <body>
-    <header><span>Task List</span></header>
-    <main id="taskPage">
+    <header class="jumbotron"><span class="display-4">Task List</span></header>
+    <main id="taskPage" class="container-fluid">
       <section id="taskCreation" class="not">
         <form id="taskForm">
           <input type="hidden" name="id" />
-          <div>
-            <label>Task</label>
+          <div class="form-group">
+            <label for="task">Task</label>
             <input
+              id="task"
               type="text"
               required="required"
               maxlength="200"
@@ -38,20 +38,28 @@
               placeholder="Breakfast at Tiffany's"
             />
           </div>
-          <div>
-            <label>Required by</label
-            ><input type="date" name="requiredBy" required="required" id="" />
+          <div class="form-group">
+            <label for="requiredBy">Required by</label
+            ><input
+              type="date"
+              name="requiredBy"
+              required="required"
+              id="requiredBy"
+            />
           </div>
-          <div>
-            <label for="">Category</label>
-            <select name="category">
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select name="category" id="category">
               <option value="Personal">Personal</option>
               <option value="Work">Work</option>
             </select>
           </div>
-          <nav>
-            <a id="saveTask" href="">Save task</a
-            ><a id="clearTask" href="">Clear task</a>
+          <nav class="form-group">
+            <a id="saveTask" href="" class="btn btn-primary task-primary"
+              >Save task</a
+            ><a id="clearTask" href="" class="btn btn-primary task-primary"
+              >Clear task</a
+            >
           </nav>
         </form>
       </section>
@@ -77,7 +85,7 @@
         <nav><a id="btnAddTask" href="#">Add task</a></nav>
       </section>
     </main>
-    <footer>You have 3 tasks</footer>
+    <footer class="jumbotron">You have 3 tasks</footer>
   </body>
   <script>
     $(document).ready(function() {
