@@ -18,8 +18,6 @@
  *
  */
 var tasksController = (function() {
-  /** @global storageEngine */
-
   // TODO: how to specify this of type ErrorCallback?
   /**
    *

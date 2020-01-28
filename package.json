@@ -6,8 +6,8 @@
   "author": "George Bockari <bitwhys@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "npx live-server \"./src\"",
-    "dev:debug": "cd src && npx serve"
+    "start": "gulp",
+    "dev:debug": "cd public && npx serve"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.3",
